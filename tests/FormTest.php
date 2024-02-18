@@ -1,0 +1,342 @@
+<?php
+/**
+ * The FormTest class file.
+ *
+ * @package    Mazepress\Html
+ * @subpackage Tests\Helper
+ */
+
+declare(strict_types=1);
+
+namespace Mazepress\Core\Tests\Helper;
+
+use WP_Mock\Tools\TestCase;
+use Mazepress\Html\Form;
+use WP_Mock;
+
+/**
+ * The FormTest class.
+ *
+ * @group Forms
+ */
+class FormTest extends TestCase {
+
+	/**
+	 * Test start function.
+	 *
+	 * @return void
+	 */
+	public function test_start(): void {
+
+		Form::start( 'test', 'get', array( 'class' => 'test-class' ) );
+		$this->expectOutputString( '<form action="test" method="get" class="test-class">' );
+	}
+
+	/**
+	 * Test end function.
+	 *
+	 * @return void
+	 */
+	public function test_end(): void {
+
+		WP_Mock::passthruFunction( 'wp_nonce_field' );
+		Form::end( 'testaction' );
+
+		$this->expectOutputString( '<input type="hidden" name="action" value="testaction" /></form>' );
+	}
+
+	/**
+	 * Test label function.
+	 *
+	 * @return void
+	 */
+	public function test_label(): void {
+
+		Form::label( 'Test Label' )->set_attributes( array( 'class' => 'test-class' ) )->render();
+
+		$this->expectOutputString( '<label class="test-class">Test Label</label>' );
+	}
+
+	/**
+	 * Test button function.
+	 *
+	 * @return void
+	 */
+	public function test_button(): void {
+
+		Form::button( 'submit', 'Test Label', 'dosubmit', 'button' )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->render();
+
+		$this->expectOutputString(
+			'<button type="button" name="submit" value="dosubmit" class="test-class">Test Label</button>'
+		);
+	}
+
+	/**
+	 * Test input function.
+	 *
+	 * @return void
+	 */
+	public function test_input(): void {
+
+		Form::input( 'testname', 'testvalue', 'text' )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->render();
+
+		$this->expectOutputString(
+			'<input type="text" name="testname" value="testvalue" class="test-class"/>'
+		);
+	}
+
+	/**
+	 * Test text function.
+	 *
+	 * @return void
+	 */
+	public function test_text(): void {
+
+		Form::text( 'testname', 'testvalue' )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->render();
+
+		$this->expectOutputString(
+			'<input type="text" name="testname" value="testvalue" class="test-class"/>'
+		);
+	}
+
+	/**
+	 * Test password function.
+	 *
+	 * @return void
+	 */
+	public function test_password(): void {
+
+		Form::password( 'testname' )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->render();
+
+		$this->expectOutputString(
+			'<input type="password" name="testname" value="" class="test-class"/>'
+		);
+	}
+
+	/**
+	 * Test number function.
+	 *
+	 * @return void
+	 */
+	public function test_number(): void {
+
+		Form::number( 'testname', 5 )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->render();
+
+		$this->expectOutputString(
+			'<input type="number" name="testname" value="5" class="test-class"/>'
+		);
+	}
+
+	/**
+	 * Test textarea function.
+	 *
+	 * @return void
+	 */
+	public function test_textarea(): void {
+
+		Form::textarea( 'testname', 'testvalue' )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->render();
+
+		$this->expectOutputString(
+			'<textarea name="testname" class="test-class" rows="4">testvalue</textarea>'
+		);
+	}
+
+	/**
+	 * Test editor function.
+	 *
+	 * @return void
+	 */
+	public function test_editor(): void {
+
+		WP_Mock::passthruFunction( 'get_option' );
+		WP_Mock::passthruFunction( 'wp_kses_post' );
+		WP_Mock::passthruFunction( 'sanitize_title' );
+		WP_Mock::echoFunction( 'wp_editor' );
+		Form::editor( 'testname', 'testvalue' )->render();
+
+		$this->expectOutputString( 'testvalue' );
+	}
+
+	/**
+	 * Test pages function.
+	 *
+	 * @return void
+	 */
+	public function test_pages(): void {
+
+		WP_Mock::passthruFunction( 'wp_dropdown_pages' );
+		Form::pages( 'testname', 1, 'Select' )->render();
+
+		$this->expectOutputString( '' );
+	}
+
+	/**
+	 * Test taxonomy function.
+	 *
+	 * @return void
+	 */
+	public function test_taxonomy(): void {
+
+		WP_Mock::passthruFunction( 'wp_dropdown_categories' );
+		Form::taxonomy( 'taxonomy', 'testname', 'texttax', 'Select' )->render();
+
+		$this->expectOutputString( '' );
+	}
+
+	/**
+	 * Test select function.
+	 *
+	 * @return void
+	 */
+	public function test_select(): void {
+
+		Form::select( 'test', 1, array( 1 => 'Option 1' ), 'Select' )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->render();
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<select name="test" class="test-class"><option value="">Select</option><option selected  value="1">Option 1</option></select>'
+		);
+	}
+
+	/**
+	 * Test select function.
+	 *
+	 * @return void
+	 */
+	public function test_select_multiple(): void {
+
+		Form::select(
+			'test',
+			array( 1, 2 ),
+			array(
+				1 => 'Option 1',
+				2 => array(
+					'text'       => 'Option 2',
+					'data-extra' => '3',
+				),
+			),
+			'Select'
+		)->set_attributes( array( 'multiple' => 'multiple' ) )->render();
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<select name="test" multiple="multiple"><option value="">Select</option><option selected  value="1">Option 1</option><option selected data-extra="3" value="2">Option 2</option></select>'
+		);
+	}
+
+	/**
+	 * Test checkbox function.
+	 *
+	 * @return void
+	 */
+	public function test_checkbox(): void {
+
+		WP_Mock::passthruFunction( 'wp_kses_post' );
+
+		Form::checkbox( 'test', 1, array( 1 => 'Option 1' ) )
+			->set_attributes(
+				array(
+					'class' => 'test-class',
+					'id'    => 'test-id',
+				)
+			)
+			->render();
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<label class="form-check-label"><input type="checkbox" name="test" checked class="test-class" id="test-id-1" value="1"/>Option 1<span class="form-check-icon"></span></label>'
+		);
+	}
+
+	/**
+	 * Test checkbox function.
+	 *
+	 * @return void
+	 */
+	public function test_checkbox_multiple(): void {
+
+		WP_Mock::passthruFunction( 'wp_kses_post' );
+
+		Form::checkbox(
+			'test',
+			array( 1, 2 ),
+			array(
+				1 => 'Option 1',
+				2 => array(
+					'text'       => 'Option 2',
+					'data-extra' => '3',
+				),
+			)
+		)->render();
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<label class="form-check-label"><input type="checkbox" name="test[]" checked   value="1"/>Option 1<span class="form-check-icon"></span></label><label class="form-check-label"><input type="checkbox" name="test[]" checked  data-extra="3" value="2"/>Option 2<span class="form-check-icon"></span></label>'
+		);
+	}
+
+	/**
+	 * Test radio function.
+	 *
+	 * @return void
+	 */
+	public function test_radio(): void {
+
+		WP_Mock::passthruFunction( 'wp_kses_post' );
+
+		Form::radio( 'test', 1, array( 1 => 'Option 1' ) )
+			->set_attributes(
+				array(
+					'class' => 'test-class',
+					'id'    => 'test-id',
+				)
+			)
+			->render();
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<label class="form-check-label"><input type="radio" name="test" checked class="test-class" id="test-id-1" value="1"/>Option 1<span class="form-check-icon"></span></label>'
+		);
+	}
+
+	/**
+	 * Test radio function.
+	 *
+	 * @return void
+	 */
+	public function test_radio_multiple(): void {
+
+		WP_Mock::passthruFunction( 'wp_kses_post' );
+
+		Form::radio(
+			'test',
+			array( 1, 2 ),
+			array(
+				1 => 'Option 1',
+				2 => array(
+					'text'       => 'Option 2',
+					'data-extra' => '3',
+				),
+			)
+		)->render();
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<label class="form-check-label"><input type="radio" name="test" checked   value="1"/>Option 1<span class="form-check-icon"></span></label><label class="form-check-label"><input type="radio" name="test" checked  data-extra="3" value="2"/>Option 2<span class="form-check-icon"></span></label>'
+		);
+	}
+}

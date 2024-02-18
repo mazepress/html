@@ -9,23 +9,26 @@
  */
 
 /**
- * Appends a trailing slash.
+ * Merges user defined arguments into defaults array.
  *
- * @param string $value The value.
+ * @param mixed        $args     The args.
+ * @param array<mixed> $defaults The defaults.
  *
- * @return string
+ * @return array<mixed>
  */
-function trailingslashit( string $value ): string {
-	return untrailingslashit( $value ) . '/';
-}
+function wp_parse_args( $args, $defaults = array() ): array {
 
-/**
- * Removes trailing forward slashes and backslashes if they exist.
- *
- * @param string $value The value.
- *
- * @return string
- */
-function untrailingslashit( string $value ): string {
-	return rtrim( $value, '/\\' );
+	if ( is_object( $args ) ) {
+		$parsed_args = get_object_vars( $args );
+	} elseif ( is_array( $args ) ) {
+		$parsed_args =& $args;
+	} else {
+		parse_str( (string) $args, $parsed_args );
+	}
+
+	if ( is_array( $defaults ) && $defaults ) {
+		return array_merge( $defaults, $parsed_args );
+	}
+
+	return $parsed_args;
 }
