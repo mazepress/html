@@ -1,7 +1,7 @@
 {
 	"name": "mazepress/html",
 	"type": "wordpress-plugin",
-	"description": "A package library for managing HTML elements.",
+	"description": "A package library for creating HTML elements.",
 	"license": "MIT",
 	"require": {
 		"php": "^7.4 | ^8.0",
