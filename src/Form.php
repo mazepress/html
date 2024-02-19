@@ -123,7 +123,7 @@ class Form {
 	 * @return Input
 	 */
 	public static function text( string $name, string $value = '' ): Input {
-		return ( new Input( $name, $value, 'text' ) )->add_attributes( 'class', 'form-control' );
+		return new Input( $name, $value, 'text' );
 	}
 
 	/**
@@ -146,7 +146,7 @@ class Form {
 	 * @return Input
 	 */
 	public static function password( string $name ): Input {
-		return ( new Input( $name, '', 'password' ) )->add_attributes( 'class', 'form-control' );
+		return new Input( $name, '', 'password' );
 	}
 
 	/**
@@ -168,7 +168,6 @@ class Form {
 		int $step = 1
 	): Input {
 		return ( new Input( $name, (string) $value, 'number' ) )
-			->add_attributes( 'class', 'form-control' )
 			->add_attributes( 'min', (string) $min )
 			->add_attributes( 'max', (string) $max )
 			->add_attributes( 'step', (string) $step );
@@ -183,7 +182,7 @@ class Form {
 	 * @return Textarea
 	 */
 	public static function textarea( string $name, string $value = '' ): Textarea {
-		return ( new Textarea( $name, $value ) )->add_attributes( 'class', 'form-control' );
+		return new Textarea( $name, $value );
 	}
 
 	/**
@@ -212,9 +211,7 @@ class Form {
 		int $value = 0,
 		string $empty_text = ''
 	): Pages {
-		return ( new Pages( $name, $value ) )
-			->set_empty_text( $empty_text )
-			->add_attributes( 'class', 'form-control custom-select' );
+		return ( new Pages( $name, $value ) )->set_empty_text( $empty_text );
 	}
 
 	/**
@@ -233,9 +230,7 @@ class Form {
 		string $value = '',
 		string $empty_text = ''
 	): Taxonomy {
-		return ( new Taxonomy( $taxonomy, $name, $value ) )
-			->set_empty_text( $empty_text )
-			->add_attributes( 'class', 'form-control custom-select' );
+		return ( new Taxonomy( $taxonomy, $name, $value ) )->set_empty_text( $empty_text );
 	}
 
 	/**
@@ -256,8 +251,7 @@ class Form {
 	): Select {
 		return ( new Select( $name, $value ) )
 			->set_options( $options )
-			->set_empty_text( $empty_text )
-			->add_attributes( 'class', 'form-control custom-select' );
+			->set_empty_text( $empty_text );
 	}
 
 	/**
