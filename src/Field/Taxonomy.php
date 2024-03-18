@@ -57,14 +57,15 @@ class Taxonomy extends BaseField {
 		$settings = \wp_parse_args(
 			$this->get_attributes(),
 			array(
-				'taxonomy'         => \esc_attr( $this->get_taxonomy() ),
-				'name'             => \esc_attr( $this->get_name() ),
-				'show_option_none' => \esc_html( (string) $this->get_empty_text() ),
-				'selected'         => $this->get_value(),
-				'orderby'          => 'name',
-				'hierarchical'     => 1,
-				'hide_empty'       => 0,
-				'value_field'      => 'slug',
+				'taxonomy'          => \esc_attr( $this->get_taxonomy() ),
+				'name'              => \esc_attr( $this->get_name() ),
+				'show_option_none'  => \esc_html( (string) $this->get_empty_text() ),
+				'option_none_value' => '',
+				'selected'          => $this->get_value(),
+				'orderby'           => 'name',
+				'hierarchical'      => 1,
+				'hide_empty'        => 0,
+				'value_field'       => 'slug',
 			)
 		);
 
