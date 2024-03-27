@@ -1,5 +1,5 @@
 # Composer
-vendor
+/vendor
 packages
 composer.lock
 composer.phar
@@ -9,8 +9,12 @@ node_modules
 package-lock.json
 
 # Build
+languages
 build
 .phpunit.result.cache
+assets/vendor
+assets/css/*.min.css
+assets/js/*.min.js
 
 # OS and IDE
 *~

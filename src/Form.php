@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Mazepress\Html;
 
-use Mazepress\Html\Field\BaseField;
 use Mazepress\Html\Field\Input;
 use Mazepress\Html\Field\Textarea;
 use Mazepress\Html\Field\Button;

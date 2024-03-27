@@ -11,7 +11,7 @@ In your `composer.json` file:
 
 ```json
 {
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "repositories": [
     {
       "type": "vcs",
@@ -19,7 +19,7 @@ In your `composer.json` file:
     }
   ],
   "require": {
-    "mazepress/html": "dev-main"
+    "mazepress/html": "^1.0.0"
   },
   "extra": {
     "installer-paths": {
@@ -33,7 +33,7 @@ In your `composer.json` file:
 Finally, you can simply run the following command for updating the composer:
 
 ```sh
-$ composer update
+composer update
 ```
 
 ## Development
