@@ -1,6 +1,8 @@
 # MazePress - Html
 A package library for managing HTML elements.
 
+[![Code Analysis](https://github.com/mazepress/html/actions/workflows/analyse.yml/badge.svg)](https://github.com/mazepress/html/actions/workflows/analyse.yml)
+
 ## Installation
 The simplest way to get up and running with this package is using [Composer](http://getcomposer.org/).
 In your `composer.json` file:
