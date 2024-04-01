@@ -12,14 +12,15 @@ In your `composer.json` file:
 ```json
 {
   "minimum-stability": "stable",
+  "prefer-stable": true,
   "repositories": [
     {
-      "type": "vcs",
-      "url": "https://github.com/mazepress/html.git"
+      "type": "composer",
+      "url": "https://mazepress.github.io/packagist"
     }
   ],
   "require": {
-    "mazepress/html": "^1.0.0"
+    "mazepress/html": "^1.0"
   },
   "extra": {
     "installer-paths": {

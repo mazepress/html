@@ -83,8 +83,8 @@ class Select extends BaseField {
 
 			if ( is_array( $value ) && ! empty( $value['text'] ) ) {
 				foreach ( $value as $option_key => $option_value ) {
-					if ( 'text' !== $option_key ) {
-						$option_attributes[] = sprintf( '%1$s="%2$s"', $option_key, \esc_attr( $option_value ) );
+					if ( 'text' !== $option_key && 'value' !== $option_key ) {
+						$option_attributes[] = sprintf( 'data-%1$s="%2$s"', $option_key, \esc_attr( $option_value ) );
 					}
 				}
 
@@ -123,7 +123,7 @@ class Select extends BaseField {
 	 *
 	 * @param string $empty_text The empty text.
 	 *
-	 * @return static
+	 * @return self
 	 */
 	public function set_empty_text( string $empty_text ): self {
 		$this->empty_text = $empty_text;
@@ -144,7 +144,7 @@ class Select extends BaseField {
 	 *
 	 * @param array<mixed> $options The options.
 	 *
-	 * @return static
+	 * @return self
 	 */
 	public function set_options( array $options ): self {
 		$this->options = $options;

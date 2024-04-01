@@ -71,7 +71,7 @@ class Pages extends BaseField {
 	 *
 	 * @param string $empty_text The empty text.
 	 *
-	 * @return static
+	 * @return self
 	 */
 	public function set_empty_text( string $empty_text ): self {
 		$this->empty_text = $empty_text;

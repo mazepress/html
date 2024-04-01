@@ -225,8 +225,8 @@ class FormTest extends TestCase {
 			array(
 				1 => 'Option 1',
 				2 => array(
-					'text'       => 'Option 2',
-					'data-extra' => '3',
+					'text'  => 'Option 2',
+					'extra' => '3',
 				),
 			),
 			'Select'
@@ -277,8 +277,8 @@ class FormTest extends TestCase {
 			array(
 				1 => 'Option 1',
 				2 => array(
-					'text'       => 'Option 2',
-					'data-extra' => '3',
+					'text'  => 'Option 2',
+					'extra' => '3',
 				),
 			)
 		)->render();
@@ -328,8 +328,8 @@ class FormTest extends TestCase {
 			array(
 				1 => 'Option 1',
 				2 => array(
-					'text'       => 'Option 2',
-					'data-extra' => '3',
+					'text'  => 'Option 2',
+					'extra' => '3',
 				),
 			)
 		)->render();
