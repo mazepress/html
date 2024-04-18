@@ -258,7 +258,7 @@ class FormTest extends TestCase {
 
 		$this->expectOutputString(
 			//phpcs:ignore Generic.Files.LineLength.TooLong
-			'<label class="form-check-label"><input type="checkbox" name="test" checked class="test-class" id="test-id-1" value="1"/>Option 1<span class="form-check-icon"></span></label>'
+			'<label class="form-check-label"><input type="checkbox" name="test" checked class="test-class" id="test-id-1" value="1"/>Option 1<span class="form-check-icon checked"></span></label>'
 		);
 	}
 
@@ -285,7 +285,7 @@ class FormTest extends TestCase {
 
 		$this->expectOutputString(
 			//phpcs:ignore Generic.Files.LineLength.TooLong
-			'<label class="form-check-label"><input type="checkbox" name="test[]" checked   value="1"/>Option 1<span class="form-check-icon"></span></label><label class="form-check-label"><input type="checkbox" name="test[]" checked  data-extra="3" value="2"/>Option 2<span class="form-check-icon"></span></label>'
+			'<label class="form-check-label"><input type="checkbox" name="test[]" checked   value="1"/>Option 1<span class="form-check-icon checked"></span></label><label class="form-check-label"><input type="checkbox" name="test[]" checked  data-extra="3" value="2"/>Option 2<span class="form-check-icon checked"></span></label>'
 		);
 	}
 
@@ -309,7 +309,7 @@ class FormTest extends TestCase {
 
 		$this->expectOutputString(
 			//phpcs:ignore Generic.Files.LineLength.TooLong
-			'<label class="form-check-label"><input type="radio" name="test" checked class="test-class" id="test-id-1" value="1"/>Option 1<span class="form-check-icon"></span></label>'
+			'<label class="form-check-label"><input type="radio" name="test" checked class="test-class" id="test-id-1" value="1"/>Option 1<span class="form-check-icon checked"></span></label>'
 		);
 	}
 
@@ -336,7 +336,7 @@ class FormTest extends TestCase {
 
 		$this->expectOutputString(
 			//phpcs:ignore Generic.Files.LineLength.TooLong
-			'<label class="form-check-label"><input type="radio" name="test" checked   value="1"/>Option 1<span class="form-check-icon"></span></label><label class="form-check-label"><input type="radio" name="test" checked  data-extra="3" value="2"/>Option 2<span class="form-check-icon"></span></label>'
+			'<label class="form-check-label"><input type="radio" name="test" checked   value="1"/>Option 1<span class="form-check-icon checked"></span></label><label class="form-check-label"><input type="radio" name="test" checked  data-extra="3" value="2"/>Option 2<span class="form-check-icon checked"></span></label>'
 		);
 	}
 }
