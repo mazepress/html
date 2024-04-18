@@ -96,14 +96,15 @@ class Radio extends BaseField {
 			$html .= sprintf(
 				'<label class="form-check-label">
 					<input type="radio" name="%1$s" %2$s %3$s %4$s value="%5$s"/>%6$s
-					<span class="form-check-icon"></span>
+					<span class="form-check-icon %7$s"></span>
 				</label>',
 				$this->get_name(),
 				\esc_attr( $checked ),
 				implode( ' ', $attributes ),
 				implode( ' ', $option_attributes ),
 				\esc_attr( $field_value ),
-				\wp_kses_post( $field_text )
+				\wp_kses_post( $field_text ),
+				\esc_attr( $checked ),
 			);
 		}
 

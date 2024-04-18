@@ -12,6 +12,11 @@ All the notable changes to this project will be documented in this file.
 ### Removed
 - 
 
+## [1.2.0]
+
+### Fixed
+- Fixed checked states for radios and checkboxes
+
 ## [1.1.0]
 
 ### Fixed
