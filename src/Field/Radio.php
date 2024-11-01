@@ -94,7 +94,7 @@ class Radio extends BaseField {
 			}
 
 			$html .= sprintf(
-				'<label class="form-check-label">
+				'<label class="form-check-label form-radio">
 					<input type="radio" name="%1$s" %2$s %3$s %4$s value="%5$s"/>%6$s
 					<span class="form-check-icon %7$s"></span>
 				</label>',
