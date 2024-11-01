@@ -194,11 +194,11 @@ abstract class BaseField {
 	 * Add or append the field.
 	 *
 	 * @param string $key   The key.
-	 * @param mixed  $value The value.
+	 * @param string $value The value.
 	 *
 	 * @return static
 	 */
-	public function add_attributes( string $key, $value ): self {
+	public function add_attributes( string $key, string $value = '' ): self {
 		$this->attributes[ $key ] = $value;
 		return $this;
 	}

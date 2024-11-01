@@ -38,8 +38,18 @@ class Editor extends BaseField {
 	 */
 	public function render(): void {
 
+		$attributes = $this->get_attributes();
+
+		if ( isset( $attributes['media_buttons'] ) ) {
+			$attributes['media_buttons'] = true;
+		}
+
+		if ( isset( $attributes['quicktags'] ) ) {
+			$attributes['quicktags'] = true;
+		}
+
 		$settings = \wp_parse_args(
-			$this->get_attributes(),
+			$attributes,
 			array(
 				'textarea_name' => \esc_attr( $this->get_name() ),
 				'textarea_rows' => \get_option( 'default_post_edit_rows', 10 ),
