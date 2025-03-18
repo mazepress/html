@@ -54,12 +54,12 @@ class Taxonomy extends BaseField {
 	 */
 	public function render(): void {
 
-		$settings = \wp_parse_args(
+		$settings = wp_parse_args(
 			$this->get_attributes(),
 			array(
-				'taxonomy'          => \esc_attr( $this->get_taxonomy() ),
-				'name'              => \esc_attr( $this->get_name() ),
-				'show_option_none'  => \esc_html( (string) $this->get_empty_text() ),
+				'taxonomy'          => esc_attr( $this->get_taxonomy() ),
+				'name'              => esc_attr( $this->get_name() ),
+				'show_option_none'  => esc_html( (string) $this->get_empty_text() ),
 				'option_none_value' => '',
 				'selected'          => $this->get_value(),
 				'orderby'           => 'name',
@@ -69,7 +69,7 @@ class Taxonomy extends BaseField {
 			)
 		);
 
-		\wp_dropdown_categories( $settings );
+		wp_dropdown_categories( $settings );
 	}
 
 	/**

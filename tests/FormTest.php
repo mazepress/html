@@ -80,13 +80,18 @@ class FormTest extends TestCase {
 	 */
 	public function test_input(): void {
 
-		Form::input( 'testname', 'testvalue', 'text' )
+		$field = Form::input( 'testname', 'testvalue', 'text' )
 			->set_attributes( array( 'class' => 'test-class' ) )
-			->render();
+			->append_attributes( array( 'id' => 'test-id' ) )
+			->add_attributes( 'disabled', '1' );
+
+		$field->render();
 
 		$this->expectOutputString(
-			'<input type="text" name="testname" value="testvalue" class="test-class"/>'
+			'<input type="text" name="testname" value="testvalue" class="test-class" id="test-id" disabled="1"/>'
 		);
+
+		$this->assertEquals( 'test-id', $field->get_attribute( 'id' ) );
 	}
 
 	/**
@@ -337,6 +342,28 @@ class FormTest extends TestCase {
 		$this->expectOutputString(
 			//phpcs:ignore Generic.Files.LineLength.TooLong
 			'<label class="form-check-label form-radio"><input type="radio" name="test" checked   value="1"/>Option 1<span class="form-check-icon checked"></span></label><label class="form-check-label form-radio"><input type="radio" name="test" checked  data-extra="3" value="2"/>Option 2<span class="form-check-icon checked"></span></label>'
+		);
+	}
+
+	/**
+	 * Test group function.
+	 *
+	 * @return void
+	 */
+	public function test_group(): void {
+
+		$field = Form::input( 'testname', 'testvalue', 'text' )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->append_attributes( array( 'id' => 'test-id' ) )
+			->add_attributes( 'disabled', '1' );
+
+		$label = Form::label( 'Test Label' );
+
+		Form::group( $field, $label, 'This field is mandatory' );
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<div class="form-group"><label for="test-id">Test Label</label><input type="text" name="testname" value="testvalue" class="test-class form-control" id="test-id" disabled="1"/><small class="form-text text-muted">This field is mandatory</small></div>'
 		);
 	}
 }

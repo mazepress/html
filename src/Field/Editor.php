@@ -40,25 +40,20 @@ class Editor extends BaseField {
 
 		$attributes = $this->get_attributes();
 
-		if ( isset( $attributes['media_buttons'] ) ) {
-			$attributes['media_buttons'] = true;
-		}
+		$attributes['media_buttons'] = ! empty( $attributes['media_buttons'] ) ? true : false;
+		$attributes['quicktags']     = ! empty( $attributes['quicktags'] ) ? true : false;
 
-		if ( isset( $attributes['quicktags'] ) ) {
-			$attributes['quicktags'] = true;
-		}
-
-		$settings = \wp_parse_args(
+		$settings = wp_parse_args(
 			$attributes,
 			array(
-				'textarea_name' => \esc_attr( $this->get_name() ),
-				'textarea_rows' => \get_option( 'default_post_edit_rows', 10 ),
+				'textarea_name' => esc_attr( $this->get_name() ),
+				'textarea_rows' => get_option( 'default_post_edit_rows', 10 ),
 				'media_buttons' => false,
 				'quicktags'     => false,
 			)
 		);
 
-		\wp_editor(
+		wp_editor(
 			wp_kses_post( (string) $this->get_value() ),
 			sanitize_title( $this->get_name() ),
 			$settings

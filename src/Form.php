@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mazepress\Html;
 
+use Mazepress\Html\Field\BaseField;
 use Mazepress\Html\Field\Input;
 use Mazepress\Html\Field\Textarea;
 use Mazepress\Html\Field\Button;
@@ -44,8 +45,8 @@ class Form {
 
 		$html = sprintf(
 			'<form action="%1$s" method="%2$s" %3$s>',
-			\esc_attr( $action ),
-			\esc_attr( $method ),
+			esc_attr( $action ),
+			esc_attr( $method ),
 			implode( ' ', $attributes )
 		);
 
@@ -63,7 +64,7 @@ class Form {
 	public static function end( string $action = '', string $wpnonce = '_wpnonce' ): void {
 
 		if ( ! empty( $action ) ) {
-			\wp_nonce_field( $action, $wpnonce );
+			wp_nonce_field( $action, $wpnonce );
 			self::hidden( 'action', $action )->render();
 		}
 
@@ -285,5 +286,50 @@ class Form {
 		array $options = array()
 	): Radio {
 		return ( new Radio( $name, $value ) )->set_options( $options );
+	}
+
+	/**
+	 * Render the form group.
+	 *
+	 * @param BaseField  $field       The field.
+	 * @param Label|null $label       The label.
+	 * @param string     $description The field description.
+	 * @param string     $group_class The form group class.
+	 * @param string     $field_class The form field class.
+	 *
+	 * @return void
+	 */
+	public static function group(
+		BaseField $field,
+		?Label $label,
+		string $description = '',
+		$group_class = 'form-group',
+		$field_class = 'form-control'
+	): void {
+
+		printf(
+			'<div class="%1$s">',
+			esc_attr( $group_class )
+		);
+
+		if ( ! empty( $label ) ) {
+			$id  = ! empty( $field->get_attribute( 'id' ) ) ? $field->get_attribute( 'id' ) : $field->get_name();
+			$for = ! empty( $field->get_attribute( 'for' ) ) ? $field->get_attribute( 'for' ) : $id;
+			$label->add_attributes( 'for', $for )->render();
+		}
+
+		$calss  = $field->get_attribute( 'class' );
+		$calss .= ! empty( $calss ) ? ' ' . $field_class : $field_class;
+
+		$field->add_attributes( 'class', $calss )->render();
+
+		if ( ! empty( $description ) ) {
+			printf(
+				'<small class="form-text text-muted">%1$s</small>',
+				esc_html( $description )
+			);
+		}
+
+		echo '</div>';
 	}
 }

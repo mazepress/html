@@ -73,8 +73,8 @@ class Radio extends BaseField {
 			if ( ! empty( $attrid ) ) {
 				$option_attributes[] = sprintf(
 					'id="%1$s-%2$s"',
-					\esc_attr( $attrid ),
-					\esc_attr( $key )
+					esc_attr( $attrid ),
+					esc_attr( $key )
 				);
 			}
 
@@ -82,7 +82,7 @@ class Radio extends BaseField {
 
 				foreach ( $value as $option_key => $option_value ) {
 					if ( 'text' !== $option_key && 'value' !== $option_key ) {
-						$option_attributes[] = sprintf( 'data-%1$s="%2$s"', $option_key, \esc_attr( $option_value ) );
+						$option_attributes[] = sprintf( 'data-%1$s="%2$s"', $option_key, esc_attr( $option_value ) );
 					}
 				}
 
@@ -99,12 +99,12 @@ class Radio extends BaseField {
 					<span class="form-check-icon %7$s"></span>
 				</label>',
 				$this->get_name(),
-				\esc_attr( $checked ),
+				esc_attr( $checked ),
 				implode( ' ', $attributes ),
 				implode( ' ', $option_attributes ),
-				\esc_attr( $field_value ),
-				\wp_kses_post( $field_text ),
-				\esc_attr( $checked ),
+				esc_attr( $field_value ),
+				wp_kses_post( $field_text ),
+				esc_attr( $checked ),
 			);
 		}
 

@@ -45,16 +45,16 @@ class Pages extends BaseField {
 	 */
 	public function render(): void {
 
-		$settings = \wp_parse_args(
+		$settings = wp_parse_args(
 			$this->get_attributes(),
 			array(
 				'selected'         => (int) $this->get_value(),
-				'name'             => \esc_attr( $this->get_name() ),
-				'show_option_none' => \esc_html( (string) $this->get_empty_text() ),
+				'name'             => esc_attr( $this->get_name() ),
+				'show_option_none' => esc_html( (string) $this->get_empty_text() ),
 			)
 		);
 
-		\wp_dropdown_pages( $settings ); //phpcs:ignore WordPress.Security.EscapeOutput
+		wp_dropdown_pages( $settings ); //phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
 	/**

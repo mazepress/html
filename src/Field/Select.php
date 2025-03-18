@@ -67,7 +67,7 @@ class Select extends BaseField {
 		if ( ! empty( $this->get_empty_text() ) ) {
 			$html .= sprintf(
 				'<option value="">%1$s</option>',
-				\esc_html( $this->get_empty_text() )
+				esc_html( $this->get_empty_text() )
 			);
 		}
 
@@ -84,7 +84,7 @@ class Select extends BaseField {
 			if ( is_array( $value ) && ! empty( $value['text'] ) ) {
 				foreach ( $value as $option_key => $option_value ) {
 					if ( 'text' !== $option_key && 'value' !== $option_key ) {
-						$option_attributes[] = sprintf( 'data-%1$s="%2$s"', $option_key, \esc_attr( $option_value ) );
+						$option_attributes[] = sprintf( 'data-%1$s="%2$s"', $option_key, esc_attr( $option_value ) );
 					}
 				}
 
@@ -97,10 +97,10 @@ class Select extends BaseField {
 
 			$html .= sprintf(
 				'<option %1$s %2$s value="%3$s">%4$s</option>',
-				\esc_attr( $selected ),
+				esc_attr( $selected ),
 				implode( ' ', $option_attributes ),
-				\esc_attr( $field_value ),
-				\esc_html( $field_text )
+				esc_attr( $field_value ),
+				esc_html( $field_text )
 			);
 		}
 
