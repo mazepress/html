@@ -18,13 +18,6 @@ use Mazepress\Html\Field\BaseField;
 class Button extends BaseField {
 
 	/**
-	 * The label.
-	 *
-	 * @var string $label
-	 */
-	private $label;
-
-	/**
 	 * Initiate class.
 	 *
 	 * @param string $name  The button name.
@@ -39,27 +32,6 @@ class Button extends BaseField {
 		$this->set_label( $label );
 		$this->set_value( $value );
 		$this->set_type( $type );
-	}
-
-	/**
-	 * Get the label.
-	 *
-	 * @return string|null
-	 */
-	public function get_label(): ?string {
-		return $this->label;
-	}
-
-	/**
-	 * Set the label.
-	 *
-	 * @param string $label The label.
-	 *
-	 * @return static
-	 */
-	public function set_label( string $label ): self {
-		$this->label = $label;
-		return $this;
 	}
 
 	/**

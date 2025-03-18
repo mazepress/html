@@ -18,13 +18,6 @@ use Mazepress\Html\Field\BaseField;
 class Label extends BaseField {
 
 	/**
-	 * The label.
-	 *
-	 * @var string $label
-	 */
-	private $label;
-
-	/**
 	 * Initiate class.
 	 *
 	 * @param string $label The field label.
@@ -35,27 +28,6 @@ class Label extends BaseField {
 		$this->set_type( 'label' );
 		$this->set_label( $label );
 		$this->set_name( bin2hex( random_bytes( 10 ) ) );
-	}
-
-	/**
-	 * Get the label.
-	 *
-	 * @return string|null
-	 */
-	public function get_label(): ?string {
-		return $this->label;
-	}
-
-	/**
-	 * Set the label.
-	 *
-	 * @param string $label The label.
-	 *
-	 * @return static
-	 */
-	public function set_label( string $label ): self {
-		$this->label = $label;
-		return $this;
 	}
 
 	/**

@@ -37,6 +37,20 @@ abstract class BaseField {
 	private $value;
 
 	/**
+	 * The label.
+	 *
+	 * @var string $label
+	 */
+	private $label;
+
+	/**
+	 * The description.
+	 *
+	 * @var string $description
+	 */
+	private $description;
+
+	/**
 	 * The attributes.
 	 *
 	 * @var string[] $attributes
@@ -110,6 +124,48 @@ abstract class BaseField {
 	 */
 	public function set_value( $value ): self {
 		$this->value = $value;
+		return $this;
+	}
+
+	/**
+	 * Get the label.
+	 *
+	 * @return string|null
+	 */
+	public function get_label(): ?string {
+		return $this->label;
+	}
+
+	/**
+	 * Set the label.
+	 *
+	 * @param string $label The label.
+	 *
+	 * @return static
+	 */
+	public function set_label( string $label ): self {
+		$this->label = $label;
+		return $this;
+	}
+
+	/**
+	 * Get the description.
+	 *
+	 * @return string|null
+	 */
+	public function get_description(): ?string {
+		return $this->description;
+	}
+
+	/**
+	 * Set the description.
+	 *
+	 * @param string $description The description.
+	 *
+	 * @return self
+	 */
+	public function set_description( string $description ): self {
+		$this->description = $description;
 		return $this;
 	}
 
