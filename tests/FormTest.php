@@ -370,18 +370,51 @@ class FormTest extends TestCase {
 	 */
 	public function test_group(): void {
 
-		$field = Form::input( 'testname', 'testvalue', 'text' )
-			->set_attributes( array( 'class' => 'test-class' ) )
-			->add_attributes( array( 'id' => 'test-id' ) )
-			->set_attribute( 'disabled', '1' );
-
-		$label = Form::label( 'Test Label' );
-
-		Form::group( $field, $label, 'This field is mandatory' );
+		Form::group(
+			Form::input( 'testname', 'testvalue', 'text' ),
+			Form::label( 'Test Label' ),
+			'This field is mandatory'
+		);
 
 		$this->expectOutputString(
 			//phpcs:ignore Generic.Files.LineLength.TooLong
-			'<div class="form-group"><label for="test-id">Test Label</label><input type="text" name="testname" value="testvalue" class="test-class form-control" id="test-id" disabled="1"/><small class="form-text text-muted">This field is mandatory</small></div>'
+			'<div class="form-group"><label for="field-testname">Test Label</label><input type="text" name="testname" value="testvalue" id="field-testname" class="form-control"/><small class="form-text text-muted">This field is mandatory</small></div>'
+		);
+	}
+
+	/**
+	 * Test group function.
+	 *
+	 * @return void
+	 */
+	public function test_group_without_label(): void {
+
+		Form::group( Form::input( 'testname', 'testvalue', 'text' ) );
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<div class="form-group"><input type="text" name="testname" value="testvalue" id="field-testname" class="form-control"/></div>'
+		);
+	}
+
+	/**
+	 * Test group function.
+	 *
+	 * @return void
+	 */
+	public function test_group_custom(): void {
+
+		$field = Form::input( 'testname', 'testvalue', 'text' )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->add_attributes( array( 'id' => 'test-id' ) );
+
+		$label = Form::label( 'Test Label' );
+
+		Form::group( $field, $label, 'This field is mandatory', 'test-group' );
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<div class="form-group test-group"><label for="test-id">Test Label</label><input type="text" name="testname" value="testvalue" class="form-control test-class" id="test-id"/><small class="form-text text-muted">This field is mandatory</small></div>'
 		);
 	}
 }

@@ -317,7 +317,6 @@ class Form {
 	 * @param Label|null $label       The label.
 	 * @param string     $description The field description.
 	 * @param string     $group_class The form group class.
-	 * @param string     $field_class The form field class.
 	 *
 	 * @return void
 	 */
@@ -325,25 +324,30 @@ class Form {
 		BaseField $field,
 		?Label $label = null,
 		string $description = '',
-		$group_class = 'form-group',
-		$field_class = 'form-control'
+		$group_class = ''
 	): void {
+
+		$group_class = ! empty( $group_class ) ? 'form-group ' . $group_class : 'form-group';
 
 		printf(
 			'<div class="%1$s">',
 			esc_attr( $group_class )
 		);
 
+		$field_id = $field->get_attribute( 'id' );
+		if ( empty( $field_id ) ) {
+			$field_id = sanitize_html_class( 'field-' . $field->get_name() );
+			$field->set_attribute( 'id', $field_id );
+		}
+
 		if ( ! empty( $label ) ) {
-			$id  = ! empty( $field->get_attribute( 'id' ) ) ? $field->get_attribute( 'id' ) : $field->get_name();
-			$for = ! empty( $field->get_attribute( 'for' ) ) ? $field->get_attribute( 'for' ) : $id;
+			$for = ! empty( $label->get_attribute( 'for' ) ) ? $label->get_attribute( 'for' ) : $field_id;
 			$label->set_attribute( 'for', $for )->render();
 		}
 
-		$calss  = $field->get_attribute( 'class' );
-		$calss .= ! empty( $calss ) ? ' ' . $field_class : $field_class;
-
-		$field->set_attribute( 'class', $calss )->render();
+		$field_class = $field->get_attribute( 'class' );
+		$field_class = ! empty( $field_class ) ? 'form-control ' . $field_class : 'form-control';
+		$field->set_attribute( 'class', $field_class )->render();
 
 		if ( ! empty( $description ) ) {
 			printf(
