@@ -82,8 +82,8 @@ class FormTest extends TestCase {
 
 		$field = Form::input( 'testname', 'testvalue', 'text' )
 			->set_attributes( array( 'class' => 'test-class' ) )
-			->append_attributes( array( 'id' => 'test-id' ) )
-			->add_attributes( 'disabled', '1' );
+			->add_attributes( array( 'id' => 'test-id' ) )
+			->set_attribute( 'disabled', '1' );
 
 		$field->render();
 
@@ -346,6 +346,24 @@ class FormTest extends TestCase {
 	}
 
 	/**
+	 * Test dynamic function.
+	 *
+	 * @return void
+	 */
+	public function test_dynamic(): void {
+
+		Form::dynamic( 'test', array( 1 => 'Option 1' ) )
+			->set_button_text( 'Add Item' )
+			->set_attributes( array( 'class' => 'test-class' ) )
+			->render();
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<div class="dynamic-block"><div class="dynamic-items"><p class="dynamic-item"><input type="text" name="test" value="Option 1" class="test-class" id="dynamic-field-1"/><a type="button" class="button dynamic-remove"><span class="dashicons-before dashicons-trash"></span></a></p></div><div class="dynamic-clone" style="display:none;" data-count="2"><p class="dynamic-item"><input type="text" name="test" value="" class="test-class" id="dynamic-field-1"/><a type="button" class="button dynamic-remove"><span class="dashicons-before dashicons-trash"></span></a></p></div><p><a type="button" class="button dynamic-add"><span class="dashicons-before dashicons-plus"></span> Add Item</a></p></div>'
+		);
+	}
+
+	/**
 	 * Test group function.
 	 *
 	 * @return void
@@ -354,8 +372,8 @@ class FormTest extends TestCase {
 
 		$field = Form::input( 'testname', 'testvalue', 'text' )
 			->set_attributes( array( 'class' => 'test-class' ) )
-			->append_attributes( array( 'id' => 'test-id' ) )
-			->add_attributes( 'disabled', '1' );
+			->add_attributes( array( 'id' => 'test-id' ) )
+			->set_attribute( 'disabled', '1' );
 
 		$label = Form::label( 'Test Label' );
 

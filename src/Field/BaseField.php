@@ -203,26 +203,26 @@ abstract class BaseField {
 	}
 
 	/**
-	 * Add or modify attributes.
+	 * Add or modify an attribute.
 	 *
 	 * @param string $key   The key.
 	 * @param string $value The value.
 	 *
 	 * @return static
 	 */
-	public function add_attributes( string $key, string $value = '' ): self {
+	public function set_attribute( string $key, string $value = '' ): self {
 		$this->attributes[ $key ] = $value;
 		return $this;
 	}
 
 	/**
-	 * Append attributes.
+	 * Add, modify or append attributes.
 	 *
 	 * @param string[] $attributes The attributes key value pair.
 	 *
 	 * @return static
 	 */
-	public function append_attributes( array $attributes ): self {
+	public function add_attributes( array $attributes ): self {
 		$this->attributes = array_merge( $this->attributes, $attributes );
 		return $this;
 	}

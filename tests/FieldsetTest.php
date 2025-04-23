@@ -50,7 +50,7 @@ class FieldsetTest extends TestCase {
 
 		$field2 = ( new Input( 'two' ) )
 			->set_description( 'Test two description' )
-			->add_attributes( 'class', 'test-class' );
+			->set_attribute( 'class', 'test-class' );
 		$this->assertInstanceOf( Fieldset::class, $fieldset->add_fields( $field2 ) );
 		$fields = $fieldset->get_fields();
 		$this->assertTrue( 2 === count( $fieldset->get_fields() ) );

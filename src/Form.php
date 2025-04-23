@@ -19,6 +19,7 @@ use Mazepress\Html\Field\Pages;
 use Mazepress\Html\Field\Taxonomy;
 use Mazepress\Html\Field\Select;
 use Mazepress\Html\Field\Checkbox;
+use Mazepress\Html\Field\Dynamic;
 use Mazepress\Html\Field\Radio;
 
 /**
@@ -168,9 +169,13 @@ class Form {
 		int $step = 1
 	): Input {
 		return ( new Input( $name, (string) $value, 'number' ) )
-			->add_attributes( 'min', (string) $min )
-			->add_attributes( 'max', (string) $max )
-			->add_attributes( 'step', (string) $step );
+			->add_attributes(
+				array(
+					'min'  => (string) $min,
+					'max'  => (string) $max,
+					'step' => (string) $step,
+				)
+			);
 	}
 
 	/**
@@ -289,6 +294,23 @@ class Form {
 	}
 
 	/**
+	 * Render dynamic field.
+	 *
+	 * @param string       $name   The field name.
+	 * @param array<mixed> $value  The value.
+	 * @param string       $button The options.
+	 *
+	 * @return Dynamic
+	 */
+	public static function dynamic(
+		string $name,
+		$value = array(),
+		string $button = ''
+	): Dynamic {
+		return ( new Dynamic( $name, $value ) )->set_button_text( $button );
+	}
+
+	/**
 	 * Render the form group.
 	 *
 	 * @param BaseField  $field       The field.
@@ -301,7 +323,7 @@ class Form {
 	 */
 	public static function group(
 		BaseField $field,
-		?Label $label,
+		?Label $label = null,
 		string $description = '',
 		$group_class = 'form-group',
 		$field_class = 'form-control'
@@ -315,13 +337,13 @@ class Form {
 		if ( ! empty( $label ) ) {
 			$id  = ! empty( $field->get_attribute( 'id' ) ) ? $field->get_attribute( 'id' ) : $field->get_name();
 			$for = ! empty( $field->get_attribute( 'for' ) ) ? $field->get_attribute( 'for' ) : $id;
-			$label->add_attributes( 'for', $for )->render();
+			$label->set_attribute( 'for', $for )->render();
 		}
 
 		$calss  = $field->get_attribute( 'class' );
 		$calss .= ! empty( $calss ) ? ' ' . $field_class : $field_class;
 
-		$field->add_attributes( 'class', $calss )->render();
+		$field->set_attribute( 'class', $calss )->render();
 
 		if ( ! empty( $description ) ) {
 			printf(
