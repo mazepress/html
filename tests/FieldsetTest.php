@@ -3,12 +3,12 @@
  * The FieldsetTest class file.
  *
  * @package    Mazepress\Html
- * @subpackage Tests\Helper
+ * @subpackage Tests
  */
 
 declare(strict_types=1);
 
-namespace Mazepress\Core\Tests\Helper;
+namespace Mazepress\Core\Tests;
 
 use WP_Mock\Tools\TestCase;
 use Mazepress\Html\Field\Fieldset;

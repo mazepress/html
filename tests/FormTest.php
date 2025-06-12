@@ -3,12 +3,12 @@
  * The FormTest class file.
  *
  * @package    Mazepress\Html
- * @subpackage Tests\Helper
+ * @subpackage Tests
  */
 
 declare(strict_types=1);
 
-namespace Mazepress\Core\Tests\Helper;
+namespace Mazepress\Core\Tests;
 
 use WP_Mock\Tools\TestCase;
 use Mazepress\Html\Form;
@@ -360,6 +360,22 @@ class FormTest extends TestCase {
 		$this->expectOutputString(
 			//phpcs:ignore Generic.Files.LineLength.TooLong
 			'<div class="dynamic-block"><div class="dynamic-items"><p class="dynamic-item"><input type="text" name="test" value="Option 1" class="test-class" id="dynamic-field-1"/><a type="button" class="button dynamic-remove"><span class="dashicons-before dashicons-trash"></span></a></p></div><div class="dynamic-clone" style="display:none;" data-count="2"><p class="dynamic-item"><input type="text" name="test" value="" class="test-class" id="dynamic-field-1"/><a type="button" class="button dynamic-remove"><span class="dashicons-before dashicons-trash"></span></a></p></div><p><a type="button" class="button dynamic-add"><span class="dashicons-before dashicons-plus"></span> Add Item</a></p></div>'
+		);
+	}
+
+	/**
+	 * Test captcha function.
+	 *
+	 * @return void
+	 */
+	public function test_captcha(): void {
+
+		Form::captcha( 'pubkey' )
+			->render();
+
+		$this->expectOutputString(
+			//phpcs:ignore Generic.Files.LineLength.TooLong
+			'<div class="g-recaptcha" data-sitekey="pubkey"></div>'
 		);
 	}
 

@@ -21,6 +21,7 @@ use Mazepress\Html\Field\Select;
 use Mazepress\Html\Field\Checkbox;
 use Mazepress\Html\Field\Dynamic;
 use Mazepress\Html\Field\Radio;
+use Mazepress\Html\Field\Captcha;
 
 /**
  * The Form class.
@@ -308,6 +309,17 @@ class Form {
 		string $button = ''
 	): Dynamic {
 		return ( new Dynamic( $name, $value ) )->set_button_text( $button );
+	}
+
+	/**
+	 * Render re-captcha field.
+	 *
+	 * @param string $public_key The API public key.
+	 *
+	 * @return Captcha
+	 */
+	public static function captcha( string $public_key ): Captcha {
+		return new Captcha( $public_key );
 	}
 
 	/**
