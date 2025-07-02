@@ -354,12 +354,13 @@ class FormTest extends TestCase {
 
 		Form::dynamic( 'test', array( 1 => 'Option 1' ) )
 			->set_button_text( 'Add Item' )
+			->set_css_class( 'parent-class' )
 			->set_attributes( array( 'class' => 'test-class' ) )
 			->render();
 
 		$this->expectOutputString(
 			//phpcs:ignore Generic.Files.LineLength.TooLong
-			'<div class="dynamic-block"><div class="dynamic-items"><p class="dynamic-item"><input type="text" name="test" value="Option 1" class="test-class" id="dynamic-field-1"/><a type="button" class="button dynamic-remove"><span class="dashicons-before dashicons-trash"></span></a></p></div><div class="dynamic-clone" style="display:none;" data-count="2"><p class="dynamic-item"><input type="text" name="test" value="" class="test-class" id="dynamic-field-1"/><a type="button" class="button dynamic-remove"><span class="dashicons-before dashicons-trash"></span></a></p></div><p><a type="button" class="button dynamic-add"><span class="dashicons-before dashicons-plus"></span> Add Item</a></p></div>'
+			'<div class="dynamic-block parent-class"><div class="dynamic-items"><div class="dynamic-item form-group" id="dynamic-field-1"><input type="text" name="test[]" value="Option 1" class="test-class"/><a type="button" class="button dynamic-remove"><span class="dashicons-before dashicons-trash"></span></a></div></div><div class="dynamic-clone" style="display:none;" data-count="2"><div class="dynamic-item form-group" id="dynamic-field-0"><input type="text" name="test[]" value="" class="test-class"/><a type="button" class="button dynamic-remove"><span class="dashicons-before dashicons-trash"></span></a></div></div><p><a type="button" class="button dynamic-add"><span class="dashicons-before dashicons-plus"></span> Add Item</a></p></div>'
 		);
 	}
 

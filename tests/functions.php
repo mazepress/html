@@ -4,7 +4,7 @@
  *
  * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals
  *
- * @package    Mazepress\Core
+ * @package    Mazepress\Html
  * @subpackage Tests
  */
 
