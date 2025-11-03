@@ -25,6 +25,13 @@ class Checkbox extends BaseField {
 	private $options = array();
 
 	/**
+	 * The multiselect flag.
+	 *
+	 * @var bool $multiselect
+	 */
+	private $multiselect = false;
+
+	/**
 	 * Initiate class.
 	 *
 	 * @param string $name  The field name.
@@ -61,7 +68,7 @@ class Checkbox extends BaseField {
 		$html = '';
 		$name = $this->get_name();
 
-		if ( 1 < count( $this->get_options() ) ) {
+		if ( 1 < count( $this->get_options() ) || $this->get_multiselect() ) {
 			$name .= '[]';
 		}
 
@@ -134,6 +141,27 @@ class Checkbox extends BaseField {
 	 */
 	public function set_options( array $options ): self {
 		$this->options = $options;
+		return $this;
+	}
+
+	/**
+	 * Get the multiselect flag.
+	 *
+	 * @return bool
+	 */
+	public function get_multiselect(): bool {
+		return $this->multiselect;
+	}
+
+	/**
+	 * Set the multiselect flag.
+	 *
+	 * @param bool $multiselect The multiselect flag.
+	 *
+	 * @return self
+	 */
+	public function set_multiselect( bool $multiselect ): self {
+		$this->multiselect = $multiselect;
 		return $this;
 	}
 }
